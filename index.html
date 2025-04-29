@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logic Facts Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #0d0d2b;
+      z-index: -1;
+    }
+
+    .container {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      color: #ffffff;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #00eaff;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .fact-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 700px;
+      font-size: 1.5rem;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease-out;
+      box-shadow: 0 0 20px rgba(0, 234, 255, 0.3);
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      background: #00eaff;
+      color: #0d0d2b;
+      cursor: pointer;
+      transition: background 0.3s;
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    button:hover {
+      background: #ffffff;
+      color: #0d0d2b;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Optional: Brain SVG background watermark */
+    .background-graphic {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      width: 200px;
+      opacity: 0.1;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <!-- Content -->
+  <div class="container">
+    <h1>Fun Logic Fact</h1>
+    <div class="fact-box" id="factBox">Click below to reveal a fun fact!</div>
+    <button onclick="showFact()">Generate Fact</button>
+  </div>
+
+  <!-- Background Graphic (optional SVG) -->
+  <img class="background-graphic" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Brain_icon.svg" alt="Brain Graphic"/>
+
+  <!-- Scripts -->
+  <script src="particles.min.js"></script>
+  <script>
+    // Load the particle background with interaction based on mouse movement
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 100,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: "#00eaff"
+        },
+        shape: {
+          type: "circle",
+          stroke: {
+            width: 0,
+            color: "#ffffff"
+          },
+          polygon: {
+            nb_sides: 5
+          },
+          image: {
+            src: "",
+            width: 100,
+            height: 100
+          }
+        },
+        opacity: {
+          value: 0.5,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 1,
+            opacity_min: 0.1,
+            sync: false
+          }
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: {
+            enable: false,
+            speed: 4,
+            size_min: 0.3,
+            sync: false
+          }
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#00eaff",
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: {
+            enable: false
+          }
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse"  // Makes particles move away when hovered
+          },
+          onclick: {
+            enable: true,
+            mode: "push"  // Creates particles when clicked
+          }
+        },
+        modes: {
+          repulse: {
+            distance: 100,
+            duration: 0.4
+          },
+          push: {
+            particles_nb: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+
+    // Fun Logic Facts
+    const facts = [
+      "Your brain uses more energy than any other organ — up to 20%!",
+      "Einstein’s brain had a larger than average inferior parietal lobe, which is linked to math and logic.",
+      "Logical reasoning is processed primarily in the left hemisphere of the brain.",
+      "There are more connections in your brain than there are stars in the galaxy.",
+      "Solving puzzles and riddles actually strengthens brain connections.",
+      "The prefrontal cortex is the brain’s logic and decision-making hub.",
+      "Neurons communicate through electric pulses, like tiny data packets.",
+      "Chess players use both logical and creative parts of the brain.",
+      "Memory and logic are deeply interconnected.",
+      "Your brain processes images 60,000 times faster than text."
+    ];
+
+    function showFact() {
+      const randomFact = facts[Math.floor(Math.random() * facts.length)];
+      const factBox = document.getElementById('factBox');
+      factBox.textContent = randomFact;
+      factBox.style.animation = 'fadeInUp 0.6s ease-out';
+      console.log('New Fact:', randomFact); // Debugging line to check console
+    }
+  </script>
+</body>
+</html>
